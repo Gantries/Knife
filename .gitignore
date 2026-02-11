@@ -1,0 +1,69 @@
+# IDE
+.idea/
+.intellij/
+.history/
+*.iml
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build
+dist/
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Coverage
+*.prof
+*.testlog
+coverage.out
+coverage.html
+
+# Dependencies
+vendor/
+
+# Generated files
+/internal/gql/*.go
+/autogen/
+/webui/.tmp/
+
+# Config (excluding example configs)
+config-*.yml
+config-*.yaml
+/config/
+/serviceaccount/
+/.env
+.env.local
+.env.*.local
+
+# Logs
+**/*.log
+logs/
+
+# Temp files
+/site/
+/docs/site/
+plugins-storage/
+plugins-local/
+
+# Security (don't commit secrets)
+*.pem
+*.key
+*.crt
+secrets/

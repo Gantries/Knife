@@ -1,0 +1,9 @@
+linters:
+  enable:
+    - staticcheck
+
+linters-settings:
+  staticcheck:
+    checks:
+      - "all"
+      - "-SA1019"  # handler.Option is deprecated in gqlgen but kept for backward compatibility

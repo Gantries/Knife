@@ -1,0 +1,34 @@
+# GoReleaser configuration for knife library
+# This configuration is optimized for releasing a Go library (not an application)
+
+version: 2
+
+project_name: knife
+
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+
+# Skip all builds - this is a library project, not a binary
+builds:
+  - skip: true
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^ci:'
+      - '^.github:'
+
+# Release notes
+release:
+  draft: false
+  prerelease: auto
+  mode: replace
+  name_template: 'v{{ .Version }}'
+
+git:
+  tag_sort: -version:creatordate
