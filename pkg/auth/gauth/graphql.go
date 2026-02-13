@@ -11,6 +11,7 @@ import (
 
 // FieldAuthenticator returns a GraphQL handler option for field-level authentication
 // Deprecated: handler.Option is deprecated in gqlgen, but kept for backward compatibility
+//
 //lint:ignore SA1019 ignore deprecation warning for backward compatibility
 func FieldAuthenticator(log *slog.Logger, whitelist Whitelist) handler.Option {
 	return handler.ResolverMiddleware(

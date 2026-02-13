@@ -44,7 +44,7 @@ func (t Sentence) Trans(tr *i18n.Localizer, args ...any) *string {
 }
 
 func (t Sentence) LocalE(tr *i18n.Localizer, log *slog.Logger, args ...any) error {
-	err := fmt.Errorf(*t.Trans(tr, args...))
+	err := fmt.Errorf("%s", *t.Trans(tr, args...))
 	if log != nil {
 		log.Error(string(t)+": %s", append(args, err)...)
 	}
@@ -52,7 +52,7 @@ func (t Sentence) LocalE(tr *i18n.Localizer, log *slog.Logger, args ...any) erro
 }
 
 func (t Sentence) E(log *slog.Logger, args ...any) error {
-	err := fmt.Errorf(*t.Trans(En, args...))
+	err := fmt.Errorf("%s", *t.Trans(En, args...))
 	if log != nil {
 		log.Error(string(t)+": %s", append(args, err)...)
 	}

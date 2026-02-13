@@ -3,6 +3,7 @@ package orm
 import (
 	"fmt"
 	"strings"
+	"sync"
 
 	"github.com/gantries/knife/pkg/lang"
 	"github.com/gantries/knife/pkg/log"
@@ -75,5 +76,5 @@ func New(properties DatabaseProperties) *Database {
 	dbid := properties.GetDSN()
 	beg, end := strings.Index(dbid, At), strings.LastIndex(dbid, Question)
 	beg, end = lang.Ternary(beg >= 0, beg+1, 0), lang.Ternary(end > 0, end, len(dbid))
-	return &Database{db, raw, properties, gen, dbid[beg:end]}
+	return &Database{db, raw, properties, gen, dbid[beg:end], sync.Map{}}
 }

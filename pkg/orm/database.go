@@ -3,9 +3,11 @@ package orm
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"log/slog"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/gantries/knife/pkg/errors"
 	"github.com/gantries/knife/pkg/lang"
@@ -25,11 +27,12 @@ type transaction struct {
 }
 
 type Database struct {
-	db         *gorm.DB
-	raw        *sql.DB
-	properties DatabaseProperties
-	naming     schema.Namer
-	database   string
+	db          *gorm.DB
+	raw         *sql.DB
+	properties  DatabaseProperties
+	naming      schema.Namer
+	database    string
+	schemaCache sync.Map
 }
 
 func (d *Database) DB() *gorm.DB {
@@ -46,6 +49,14 @@ func (d *Database) Query(table ...string) *Criteria {
 
 func (d *Database) Table(table string) *gorm.DB {
 	return d.db.Table(table)
+}
+
+func (d *Database) Schema(model any) *schema.Schema {
+	s, err := schema.Parse(model, &d.schemaCache, d.naming)
+	if err != nil {
+		panic(fmt.Sprintf("cannot parse model to schema: model=%v, error=%v", model, err))
+	}
+	return s
 }
 
 func (d *Database) TableWithContext(ctxt context.Context, table string) *gorm.DB {
